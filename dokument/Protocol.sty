@@ -1,0 +1,199 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% packages
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typearea[current]{calc}        % neuberechnung des textsatzes
+\usepackage[a4paper,left=25mm,right=25mm,top=28mm,bottom=35mm]{geometry} % rand einstellungen
+
+\usepackage{fancyhdr}
+%\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[naustrian]{babel}
+
+\usepackage[colorlinks,citecolor=blue]{hyperref} % fuer links im inhaltsverzeichnis und bei siehe...
+\usepackage[all]{hypcap} % zu den bildern und nicht zur bildunterschrift springen
+% \usepackage{hyperref}
+
+\usepackage{fancyhdr}
+\usepackage{calc}
+\usepackage[usenames]{color}
+\usepackage{moreverb}
+\usepackage{amssymb}
+\usepackage[final]{graphicx}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{comment}
+\usepackage{lastpage}
+\usepackage{listings}
+
+\usepackage{marvosym}
+
+\usepackage{amsmath, amsthm, amssymb}
+
+\usepackage{ifthen}
+
+
+\usepackage[style=alphabetic-verb]{biblatex}
+\usepackage[babel,german=guillemets]{csquotes}
+
+\sloppy % "Nachlässige" Silbentrennung
+
+\nocite{*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% for listings
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage[usenames]{xcolor}
+
+\definecolor{dgreen}{RGB}{30,71,21}
+\definecolor{codegray}{RGB}{240,240,240}
+
+\usepackage{listings}
+\lstset{
+	language=bash,                  % choose the language of the code
+	basicstyle=\footnotesize,       % the size of the fonts that are used for the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it's 1 each line 
+		                        % will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{codegray},  % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	frame=single,	                % adds a frame around the code
+	tabsize=2,	                % sets default tabsize to 2 spaces
+	captionpos=b,                   % sets the caption-position to bottom
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+	basicstyle=\ttfamily
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% some size definitions and counter settings
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\renewcommand{\floatpagefraction}{0.9}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{1.0}
+\renewcommand{\bottomfraction}{1.0}
+\renewcommand{\figurename}{Abbildung}
+
+\setcounter{totalnumber}{3}
+\setcounter{bottomnumber}{3}
+\setcounter{topnumber}{3}
+
+\setlength{\unitlength}{1mm}
+\setlength{\parindent}{0mm}
+%\setlength{\parindent}{6mm}
+\setlength{\parskip}{12pt plus2pt minus2pt}
+
+\newenvironment{qa}{
+  \begin{list}{}{\leftmargin=0em}
+}{
+  \end{list}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\raggedbottom % damit der Text nicht auf jeder Seite bis ans Ende auseinandergezogen wird. Gegenteil ist: \flushbottom
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% fuszzeile
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\fancyhf{}
+
+%\fancyhead[L]{}
+%\fancyhead[R]{}
+%Linie oben
+%\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrulewidth}{0pt}
+ 
+\fancyfoot[L]{\today}
+\fancyfoot[C]{Infoscreen Info}
+\fancyfoot[R]{Seite \thepage\ von \pageref*{LastPage}}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+
+\fancypagestyle{plain}{%
+\fancyhf{}
+
+%\fancyhead[L]{}
+%\fancyhead[R]{}
+%Linie oben
+%\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrulewidth}{0pt}
+ 
+\fancyfoot[L]{\today}
+\fancyfoot[C]{Infoscreen Info}
+\fancyfoot[R]{Seite \thepage\ von \pageref*{LastPage}}
+%Linie unten
+\renewcommand{\footrulewidth}{0.5pt}
+}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% define variables used on titlepage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% user-defined commands
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bemerkung}[1]{\ifthenelse{\equal{\isDraft}{true}}{\textcolor{blue}{\textbf{Bemerkung:} #1}\\}{}}
+\newcommand{\todo}[1]{\ifthenelse{\equal{\isDraft}{true}}{\textcolor{red}{\textbf{TODO:} #1}\\}{}}
+
+\newcommand{\reffig}[1]{\hyperref[fig:#1]{Abbildung~\ref*{fig:#1} auf Seite~\pageref*{fig:#1}}}
+\newcommand{\reftab}[1]{\hyperref[tab:#1]{Tabelle~\ref*{tab:#1} auf Seite~\pageref*{tab:#1}}}
+\newcommand{\reflst}[1]{\hyperref[lst:#1]{Listing~\ref*{lst:#1} auf Seite~\pageref*{lst:#1}}}
+\newcommand{\refsec}[1]{\hyperref[sec:#1]{Kapitel~\ref*{sec:#1} auf Seite~\pageref*{sec:#1}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% titlepage
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\def\maketitle{
+\begin{center}
+Bezirksfeuerwehrkommando Tulln\\Sachgebiet EDV\\
+\vspace{7cm}
+{\LARGE\bf Infoscreen Info\\}
+\vspace{7cm}
+{Andreas Brandstätter\\
+Bezirkssachbearbeiter EDV\\
+edv@bfkdo-tulln.at\\
+}
+\vspace{1.5cm}
+{Sieghartskirchen, \today}
+\end{center}
+\vspace{1.5cm}
+%}}}
+
+\newpage
+} % \def\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+

@@ -1,0 +1,48 @@
+\documentclass[12pt,a4paper,titlepage,twoside,bibtotocnumbered,liststotocnumbered]{scrreprt}
+\usepackage{Protocol}
+\bibliography{./refs} 
+
+\newcommand{\datum}{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% DO NOT CHANGE THE FOLLOWING PART
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\maketitle
+\setcounter{section}{0}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\pagebreak
+
+%opening
+\title{Infoscreen Info}
+\author{Andreas Brandstätter, BSB EDV Bezirk Tulln}
+
+\newcommand{\isDraft}{true}
+%\newcommand{\isDraft}{false}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Überblick}
+\input{chapter_01_ueberblick}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Hardware}
+\input{chapter_02_hardware}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Schritt-für-Schritt Anleitung}
+\input{chapter_03_schritte}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Anhang}
+\input{chapter_04_anhang}
+
+\listoffigures
+\printbibliography 
+
+\end{document}
+

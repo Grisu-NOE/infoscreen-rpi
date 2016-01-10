@@ -1,0 +1,256 @@
+\section{Änderungen im Detail}
+Im vorhergehenden Abschnitt wurde ein Script verwendet, um alle Einstellungen anzupassen.
+In diesem Kapitel werden die vorgenommen Einstellungen erläutert (es muss davon nichts händisch durchgeführt werden, da die Änderungen bereits durch das Script vorgenommen wurden).\\
+Hinweis: Die \refsec{zeitzone}, \refsec{sprache} und \refsec{tastatur} könnten auch im Menü zur Einrichtung des Betriebsystems (siehe \refsec{stepsinstall}) vorgenommen werden.
+Sie wurden in das Script eingefügt, weil teilweise die Einrichtung dieser Punkte im Menü nicht funktionierte.
+
+\subsection{Zeitzone einrichten}
+\label{sec:zeitzone}
+Die Zeitzone wird auf \begin{em}Europe/Vienna\end{em} gestellt.
+Dazu wird die entsprechende Zeitzone in die Datei \lstinline|/etc/timezone| geschrieben und mit dem Befehl \lstinline|dpkg-reconfigure tzdata| angewendet.
+
+\subsection{Systemzeit aktualisieren}
+\label{sec:zeitsync}
+Der Server \lstinline|ts1.univie.ac.at| wird in der Datei \lstinline|/etc/ntp.conf| zur Zeitsynchronisierung eingetragen.
+(Die Default-Server hatten in seltenen Fällen Probleme mit der Zeitsynchronisierung.)
+Der Zeitsynchronisierung-Dienst wird gestoppt, danach mit dem Befehl \lstinline|ntpd -gqx| eine sofortige Synchronisierung durchgeführt und der Dienst wieder gestartet.
+
+\subsection{Sprache einrichten}
+\label{sec:sprache}
+Die Zeitzone (bzw. \begin{em}locale\end{em}) wird auf \begin{em}de\_AT.UTF-8\end{em} (bedeutet Deutsch mit Zeichencodierung UTF-8) gestellt.
+Dazu wird der entsprechende Eintrag in der Datei \lstinline|/etc/locale.gen| aktiviert und mit dem Befehl \lstinline|locale-gen| und \lstinline|update-locale| angewendet.
+
+\subsection{Tastaturlayout einrichten}
+\label{sec:tastatur}
+Das Tastaturlayout wird auf deutsch gestellt (z.B. sind \lstinline|Z| und \lstinline|Y| im vergleich zum englischen Tastaturlayout vertauscht).
+Dazu wird der entsprechende Eintrag in die Datei \lstinline|/etc/default/keyboard| geschrieben und mit dem Befehl \lstinline|dpkg-reconfigure keyboard-configuration| angewendet.
+
+\subsection{Paketinstallation}
+Folgende Software-Pakete werden (nach einem Update der Software-Paketliste) installiert:
+\begin{itemize}
+	\item {\lstinline|firefox|\\Dies ist der verwendete Web-Browser um die Infoscreen-Webseite anzuzeigen (\begin{em}Firefox\end{em} wird in Debian auch teilweise \begin{em}Iceweasel\end{em} genannt, details dazu siehe \cite{iceweasel}).}
+	\item {\lstinline|unclutter|\\Wird benötigt, um den Mauszeiger auszublenden.}
+	\item {\lstinline|x11-xserver-utils|\\Wird benötigt, um den Bildschirmschoner und den Bildschirm-Standby zu deaktivieren.}
+	\item {\lstinline|xmlstarlet|\\Wird zur automatischen Installation von Firefox-Plugins benötigt.}
+\end{itemize}
+
+\subsection{Firefox Plugin}
+Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}R-kiosk\end{em} \cite{rkiosk} installiert.
+
+\subsection{Autostart}
+\label{sec:autostartconf}
+Die Datei \lstinline|/etc/xdg/lxsession/LXDE-pi/autostart| wurde wie folgt angepasst:\\
+Original-Inhalt:
+\begin{lstlisting}
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+@xscreensaver -no-splash
+\end{lstlisting}
+Neuer Inhalt:
+\begin{lstlisting}
+@lxpanel --profile LXDE-pi
+@pcmanfm --desktop --profile LXDE-pi
+#@xscreensaver -no-splash
+
+@xset s off
+@xset -dpms
+@xset s noblank
+
+@firefox
+
+@unclutter -idle 0.1 -root
+\end{lstlisting}
+\begin{itemize}
+%	\item {Die Zeilen 1 bis 3 wurden mit dem \lstinline|#|-Zeichen auskommentiert. (Der Start des normalen Desktops und des Bildschirmschoners wird damit nicht mehr ausgeführt.)}
+	\item {Die Zeile 3 wurde mit dem \lstinline|#|-Zeichen auskommentiert. (Der Start des Bildschirmschoners wird damit nicht mehr ausgeführt.)}
+	\item {Die Zeilen 5 bis 7 sorgen dafür, dass der Bildschirm nie abgeschaltet und kein Engergiesparmodus aktiviert wird.}
+	\item {Zeile 9 startet den Browser.}
+	\item {Zeile 11 sorgt dafür, dass der Mauszeiger versteckt wird.}
+\end{itemize}
+
+\subsection{Browser-Konfiguration}
+\label{sec:browserconf}
+Zuserst werden alle Firefox-Profile gelöscht und anschließend wird mit dem Befehl \lstinline|firefox -CreateProfile Infoscreen| ein leeres Firefox-Profil angelegt.
+In der Datei \lstinline|/home/pi/.mozilla/firefox/*Infoscreen/prefs.js| werden folgende Optionen eingefügt:\\
+\begin{itemize}
+	\item {\lstinline|user_pref("browser.startup.homepage", "https://infoscreen.florian10.info/");|\\
+		definiert die Startseite, welche geladen werden soll.}
+	\item {\lstinline|user_pref("browser.cache.disk.capacity", 0);|\\
+		deaktiviert den Cache des Browsers.}
+	\item {\lstinline|user_pref("app.update.enabled", false);|\\
+		deaktiviert Update-Meldungen.}
+	\item {\lstinline|user_pref("general.useragent.override", "Rpi-Infoscreen2.2");|\\
+		setzt einen individuellen User-Agent.}
+	\item {\lstinline|user_pref("browser.sessionstore.enabled", true);| und \\
+		\lstinline|user_pref("browser.sessionstore.resume_from_crash", false);| und \\
+		\lstinline|user_pref("browser.sessionstore.browser.sessionstore.max_resumed_crashes", 0);|\\
+		verhindern, dass nach einem ungeplanten Neustart von Firefox ein Hinweis zur Tab-Wiederherstellung angezeigt wird.}
+\end{itemize}
+
+\subsection{Desktop-Verknüpfungen}
+\label{sec:desktopconf}
+Am Desktop werden zwei Verknüpfungen zu Firefox (=Iceweasel) angelegt.
+Die Datei \lstinline|/home/pi/Desktop/iceweasel.desktop| sorgt für eine Verknüfung zum normalen Start von Firefox:\\
+\begin{lstlisting}
+[Desktop Entry]
+Encoding=UTF-8
+Name=Iceweasel
+Exec=iceweasel
+Terminal=false
+Type=Application
+Icon=iceweasel
+Categories=Network;WebBrowser;
+StartupWMClass=Iceweasel
+StartupNotify=true
+\end{lstlisting}
+
+Die Datei \lstinline|/home/pi/Desktop/safemode.desktop| sorgt für eine Verknüfung zum Start von Firefox im Safe-Mode (dieser unterbindet den Start von Plugins und damit dass Firefox im Vollbild-Modus gestartet wird):\\
+\begin{lstlisting}
+[Desktop Entry]
+Encoding=UTF-8
+Name=Iceweasel (safe-mode)
+Exec=iceweasel -safe-mode
+Terminal=false
+Type=Application
+Icon=iceweasel
+Categories=Network;WebBrowser;
+StartupWMClass=Iceweasel
+StartupNotify=true
+\end{lstlisting}
+
+\subsection{automatischer Neustart}
+\label{sec:rebootconf}
+Die Datei \lstinline|/etc/crontab| wurde wie folgt angepasst:\\
+Inhalt der Datei:
+\begin{lstlisting}
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user	command
+17 *	* * *	root    cd / && run-parts --report /etc/cron.hourly
+25 6	* * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6	* * 7	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+
+7  4	* * *	root	echo "`date` - periodic reboot" >> /root/reboot.log; reboot 
+*/5  *	* * *	root	pidof midori > /dev/null && echo "`date` - midori running" > /root/running.log || (echo "`date` - midori not running" >> /root/reboot.log; reboot )
+0  5	5 1 *	root	echo "`date` - cleaned file" > /root/reboot.log;
+
+#
+\end{lstlisting}
+\begin{itemize}
+	\item {Zeile 10 sorgt dafür, dass das RaspberryPi jeden Tag um 04:07 Uhr neu gestartet wird (das wird in der Datei \lstinline|/root/reboot.log| protokolliert).}
+	\item {Zeile 11 sorgt dafür, dass das RaspberryPi neu gestartet wird, falls der Firefox aus unerwarteten Gründen beendet wird. Dies wird alle 5 Minuten geprüft.
+		Es erfolgt ebenfalle eine Protokollierung der Ereignisse in der Datei \lstinline|/root/reboot.log|.}
+	\item {Zeile 12 beinhaltet den Befehl die Protokoll-Datei \lstinline|/root/reboot.log| jährlich zu leeren.}
+\end{itemize}
+
+\subsection{Bildschirm-Standby deaktivieren}
+Die Datei \lstinline|/etc/lightdm/lightdm.conf| wurde wie folgt angepasst:\\
+Die originale Zeile:
+\begin{lstlisting}
+#xserver-command=X
+\end{lstlisting}
+Wird ersetzt durch die neue Zeile:
+\begin{lstlisting}
+xserver-command=X -s 0 -dpms
+\end{lstlisting}
+Diese Änderung deaktiviert den Bildschirm-Standby.\\
+(Hinweis: Möglicherweise ist diese Änderung nicht notwendig. Bei einem Test funktionierte es auch mit der originalen Datei.)
+
+\section{Anmerkungen / FAQ}
+\label{sec:faq}
+In diesem sollen häufig gestellte Fragen beantwortet werden bzw. einige Tipps zusammengefasst werden.
+
+\subsection{GUI verwenden}
+Beim Start wird auch automatisch Firefox im Vollbild-Modus gestartet. Falls man auf der grafischen Oberfläche arbeiten möchte, muss dieser mit \lstinline|ALT + F4| zunächst beendet werden.
+Da aber das Raspberry nach spätestens 5 Minuten neu starten würde (siehe auch \refsec{rebootconf}) sollte der Firefox im Safe-Mode (siehe auch \refsec{desktopconf}) wieder gestartet werden (Desktop-Verknüpfung \lstinline|Iceweasel (safe-mode)| dann klick auf \lstinline|Start in Safe Mode|).
+Damit wird Firefox nicht im Vollbild gestartet und kann minimiert werden.
+
+\subsection{Internetverbindung nach Stromausfall}
+\label{sec:stromausfall}
+Nach einem Stromausfall hatte eine Feuerwehr das Problem, dass das Modem einige Zeit benötigt, bis wieder eine Internetverbindung hergestellt ist.
+Wenn das Raspberry schneller startet, wird im Browser angezeigt, dass keine Internetverbindung gefunden wurde, die Seite aber nicht mehr neu geladen.
+
+Die folgende Änderung in der Datei \lstinline|/etc/rc.local| kann bei so einem Problem Abhilfe schaffen:\\
+Original-Inhalt (Ausschnitt, Auslassungszeichen \lstinline|[...]|):
+\begin{lstlisting}
+#!/bin/sh -e
+# [...]
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+exit 0
+\end{lstlisting}
+Folgender Inhalt (Zeile 11) sollte hinzugefügt werden:
+\begin{lstlisting}
+#!/bin/sh -e
+# [...]
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+ping 8.8.8.8 -c 3 && (echo "internet ok" >> /root/reboot.log;) || (echo "NO internet" >> /root/reboot.log; sleep 180 && reboot; )
+
+exit 0
+\end{lstlisting}
+Diese Datei wird beim Start des Raspberry ausgeführt. Der Eintrag in Zeile 11 prüft beim Start die Internetverbindung (Ping eines Google-Servers). Falls dies fehlschlägt, wird 3 Minuten (180 Sekunden) gewartet und das Raspberry neu gestartet. (Wie die Datei geändert werden kann siehe \refsec{dateiaendern})
+
+\subsection{Dateien als root ändern}
+\label{sec:dateiaendern}
+Am einfachsten kann eine Datei als root (vergleichbar mit Administrator-Benutzer) zu ändern ist per SSH.
+\begin{itemize}
+	\item {Informationen zur Verbindung siehe \refsec{stepssetup} bis zum Punkt \begin{em}Bei login as: ...\end{em}.}
+	\item {Zum Start eines einfachen Editors folgenden Befehl eingeben:\\ \lstinline|sudo nano /etc/rc.local|\\
+		Dieser Befehl hat folgende Bedeutung:\\
+		\lstinline|sudo| - damit die Aktion als root ausgeführt wird\\
+		\lstinline|nano| - Start eines einfachen Editors\\
+		\lstinline|/etc/rc.local| - welche Datei im Editor geöffnet werden soll
+		}
+	\item {Mit \lstinline|STRG+X| wird der Editor beendet und \lstinline|Y| bestätigt ggf. das Speichern der Änderungen.
+		(Wenn PuTTY verwendet wird, kann der Inhalt der Windows-Zwischenablage mit Klick der rechten Maustaste eingefügt werden - nicht mit \lstinline|STRG+Y|!)
+		}
+	\item {Weitere Informationen zur Bedienung des Editors nano:\\ \url{http://wiki.ubuntuusers.de/Nano}
+		}
+\end{itemize}
+
+
+\section{Änderungsprotokoll}
+In diesem Abschnitt werden die Änderungen bei neuen Versionen aufgelistet, damit ggf. ein schneller Überblick über Neuerungen und Aktualisierungen möglich ist.
+\begin{itemize}
+	\item {Version vom 17. August 2014\\ Dokument erstellt.}
+	\item {Version vom 26. September 2014\\ Dokument aktualisiert für eine neue Version des raspbian Images (\lstinline|2014-09-09-wheezy-raspbian.zip|). Funktionsumfang unverändert.\\
+		Danke für die Hinweise von \textit{fuchsi} und \textit{schmiddy} im wax.at-Forum \cite{wax1}.}
+	\item {Version vom 28. Februar 2015\\ Dokument aktualisiert für das neue das \begin{em}RaspberryPi 2 Model B\end{em}. Version des raspbian Images (\lstinline|2015-02-16-raspbian-wheezy.zip|) aktualisiert. Verwendung des Browsers \textit{Firefox} statt bisher \textit{midori}. Sonstiger Funktionsumfang unverändert.\\
+		Danke für die Hinweise und Anmerkungen von einigen Kameraden, die mich per Email erreicht haben.
+		}
+	\item {Version vom 09. März 2015\\ Folgende Änderungen: 
+		Firefox Tab-Wiederherstellung abgeschaltet (siehe \refsec{browserconf}). 
+		Desktop-Verknüpfungen zum manuellen Start von Firefox hinzugefügt (siehe \refsec{desktopconf}).
+		In der letzten Version war die Taskleiste ausgeblendet. Dieser Fehler wurde behoben (siehe \refsec{autostartconf}).
+		Neuer Abschnitt \textit{Anmerkungen / FAQ} (siehe \refsec{faq}).\\
+		Hinweis: Falls eine Aktualisierung von der Version vom 28. Februar 2015 vorgenommen werden soll, 
+		reicht es die Schritte ab \refsec{stepssetup} \textit{Einrichtung des Infoscreens} auszuführen.
+		(Das \refsec{stepsinstall} \textit{Installation des Betriebsystems} muss nicht erneut durchgeführt werden.)
+		}
+	\item {Version vom 08. Juni 2015\\ Keine Änderungen im Script.
+		Hinweise in FAQ-Bereich eingefügt: Internetverbindung nach Stromausfall (siehe \refsec{stromausfall}) und Dateien als root ändern (siehe \refsec{dateiaendern}).
+ 		}
+	\item {Version vom 04. Jänner 2016\\ 
+		Modell \textit{Zero} in Tabelle und Hinweis auf Hardwareübersicht in Wikipedia eingefügt (siehe \refsec{rpi}).
+		Die Version des Installers hat sich (\lstinline|2015-05-05-raspbian-wheezy.zip| bzw. \lstinline|2015-11-21-raspbian-jessie.zip|) geändert. 
+		Anpassungen des Scripts für die neue Version (siehe auch \refsec{zeitzone}, \refsec{zeitsync}, \refsec{sprache} und \refsec{tastatur}).
+		Funktionsumfang unverändert.
+ 		}
+\end{itemize}
+
+
