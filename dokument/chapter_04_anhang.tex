@@ -39,7 +39,7 @@ Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}R-ki
 
 \subsection{Autostart}
 \label{sec:autostartconf}
-Die Datei \lstinline|/etc/xdg/lxsession/LXDE-pi/autostart| wurde wie folgt angepasst:\\
+Die Datei \lstinline|/home/pi/.config/lxsession/LXDE-pi/autostart| wurde wie folgt angepasst:\\
 Original-Inhalt:
 \begin{lstlisting}
 @lxpanel --profile LXDE-pi
@@ -79,7 +79,7 @@ In der Datei \lstinline|/home/pi/.mozilla/firefox/*Infoscreen/prefs.js| werden f
 		deaktiviert den Cache des Browsers.}
 	\item {\lstinline|user_pref("app.update.enabled", false);|\\
 		deaktiviert Update-Meldungen.}
-	\item {\lstinline|user_pref("general.useragent.override", "Rpi-Infoscreen2.2");|\\
+	\item {\lstinline|user_pref("general.useragent.override", "Rpi-Infoscreen2.3");|\\
 		setzt einen individuellen User-Agent.}
 	\item {\lstinline|user_pref("browser.sessionstore.enabled", true);| und \\
 		\lstinline|user_pref("browser.sessionstore.resume_from_crash", false);| und \\
@@ -133,7 +133,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 
 7  4	* * *	root	echo "`date` - periodic reboot" >> /root/reboot.log; reboot 
-*/5  *	* * *	root	pidof midori > /dev/null && echo "`date` - midori running" > /root/running.log || (echo "`date` - midori not running" >> /root/reboot.log; reboot )
+*/5  *	* * *	root	pidof iceweasel > /dev/null && echo "`date` - iceweasel running" > /root/running.log || (echo "`date` - iceweasel not running" >> /root/reboot.log; reboot )
 0  5	5 1 *	root	echo "`date` - cleaned file" > /root/reboot.log;
 
 #
@@ -223,6 +223,10 @@ Am einfachsten kann eine Datei als root (vergleichbar mit Administrator-Benutzer
 		}
 \end{itemize}
 
+\subsection{Über dieses Dokument}
+\label{sec:github}
+Der Quellcode zu diesem Dokument ist auf GitHub verfügbar:\\
+\url{https://github.com/Grisu-NOE/infoscreen-rpi}
 
 \section{Änderungsprotokoll}
 In diesem Abschnitt werden die Änderungen bei neuen Versionen aufgelistet, damit ggf. ein schneller Überblick über Neuerungen und Aktualisierungen möglich ist.
@@ -250,6 +254,13 @@ In diesem Abschnitt werden die Änderungen bei neuen Versionen aufgelistet, dami
 		Die Version des Installers hat sich (\lstinline|2015-05-05-raspbian-wheezy.zip| bzw. \lstinline|2015-11-21-raspbian-jessie.zip|) geändert. 
 		Anpassungen des Scripts für die neue Version (siehe auch \refsec{zeitzone}, \refsec{zeitsync}, \refsec{sprache} und \refsec{tastatur}).
 		Funktionsumfang unverändert.
+ 		}
+	\item {Version vom 09. Mai 2016\\ 
+		Modell \textit{RaspberryPi 3 Model B} in Tabelle eingefügt (siehe \refsec{rpi}).
+		Die Version des Installers hat sich (\lstinline|2016-03-18-raspbian-jessie.zip|) geändert. 
+		Anpassungen des Scripts für die neue Version.
+		Funktionsumfang unverändert.
+		Hinweis zu WLAN (siehe \refsec{rpiwlan}) und auf GitHub (siehe \refsec{github}) eingefügt.
  		}
 \end{itemize}
 

@@ -16,26 +16,27 @@ Längere HDMI, DVI oder VGA-Kabel sind auch oft problematisch.
 Eine gute Alternative ist dabei ein RaspberryPi \cite{rpi}. Ein RaspberryPi ist sehr preiswerter Einplatinen-Computer mit den ungefähren Abmessungen einer Scheckkarte.\\
 Seit 2012 gibt es bereits mehrere Modelle des RaspberryPi. Die \reftab{rpimodels} gibt einen Überblick über die verfügbaren Modelle und die Eignung für den Infoscreen. 
 (Auf Wikipedia findet sich ebenfalls eine gute Übersicht über die Hardwareeigenschaften der verschiedenen Modelle \cite{wikirpi}.)
-Das zur Zeit (Anfang 2016) aktuelle (und auch für den Infoscreen empfohlene) Modell ist das \begin{em}RaspberryPi 2 Model B\end{em}.\\
+Das zur Zeit (Mai 2016) aktuelle (und auch für den Infoscreen empfohlene) Modell ist das \begin{em}RaspberryPi 3 Model B\end{em}.\\
 %Zur Zeit gibt es das ältere \begin{em}Model B\end{em} (siehe \reffig{rpib}) und das \begin{em}Model B+\end{em} (siehe \reffig{rpibplus}).
 %Beide davon sind für den Betrieb eines Infoscreens geeignet.
-(Das \begin{em}Model A\end{em} oder \begin{em}Model A+\end{em} ist nicht geeignet, da es keinen Netzwerkanschluss hat.)
+(Das \begin{em}Zero\end{em}, \begin{em}Model A\end{em} oder \begin{em}Model A+\end{em} ist nicht geeignet, da es keinen Netzwerkanschluss hat.)
 
 \begin{table}[h!]
   \center
-  \begin{tabular}{ l | c | l || c | l }
+  \begin{tabular}{ l | c | l || c }
     \hline
-    Modell & Ethernet & RAM & geeignet & Anmerkungen\\ \hline
+    Modell & Ethernet & RAM & geeignet \\ \hline
     RaspberryPi Model A & nein & 256MiB & nein \\
-    RaspberryPi Model B {\hyperref[fig:rpib1]{(Abb.)}} & ja & 256MiB & ja * \\
-    RaspberryPi Model B rev2 {\hyperref[fig:rpib2]{(Abb.)}} & ja & 512MiB & ja * \\
+    RaspberryPi Model B {\hyperref[fig:rpib1]{(Abb.)}} & ja & 256MiB & ja $^{1)}$ \\
+    RaspberryPi Model B rev2 {\hyperref[fig:rpib2]{(Abb.)}} & ja & 512MiB & ja $^{1)}$ \\
     RaspberryPi Model B+ {\hyperref[fig:rpibplus]{(Abb.)}} & ja & 512MiB & ja \\
     RaspberryPi Model A+ & nein & 256MiB & nein \\
-    RaspberryPi 2 Model B {\hyperref[fig:rpi2b]{(Abb.)}} & ja & 1GiB & ja * & aktuelle Version \\
+    RaspberryPi 2 Model B {\hyperref[fig:rpi2b]{(Abb.)}} & ja & 1GiB & ja $^{1)}$ \\
+    RaspberryPi 3 Model B $^{2)}$ {\hyperref[fig:rpi3b]{(Abb.)}} & ja (+WLAN) & 1GiB & ja $^{1)}$ \\
     Zero & nein & 256MiB & nein \\
     \hline
   \end{tabular}
-	\caption{RaspberryPi Modellübersicht (* = nicht getestet)}
+	\caption{RaspberryPi Modellübersicht ($^{1)}$ = nicht getestet, $^{2)}$ = aktuelle Version)}
 	\label{tab:rpimodels}
 \end{table}
 
@@ -69,6 +70,13 @@ Das zur Zeit (Anfang 2016) aktuelle (und auch für den Infoscreen empfohlene) Mo
 	\label{fig:rpi2b}
 \end{figure}
 
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=0.55\textwidth]{./fotos/Raspberry_Pi_3_Model_B.jpg}
+	\caption{RaspberryPi 3 Model B (Quelle: \cite{rpi3b})}
+	\label{fig:rpi3b}
+\end{figure}
+
 \clearpage
 
 Auf dem RaspberryPi läuft üblicherweise eine Version von Linux (z.b. raspbian \cite{raspbian}).
@@ -77,12 +85,13 @@ Auch wer noch überhaupt keine Erfahrung mit Linux hat, kann den Infoscreen mit 
 % \clearpage
 
 Hier eine Auflistung von empfehlenswerten bzw. notwendigem Zubehör. Ebenso einige Links zu Preisvergleichs-Seiten bzw. Händlern und ungefähre Preise.
+Einige Händler bieten auch verschiedene RaspberryPi-Modelle inklusive passendem Gehäuse bzw. SD-Karte in einem Gesamtpaket an.
 \begin{itemize}
-	\item \textbf{RaspberryPi 2 Model B}\\
-		Preis: ca. 35 Euro\\
+	\item \textbf{RaspberryPi 3 Model B}\\
+		Preis: ca. 40 Euro\\
 		Beispiele für Händler:\\
-		Geizhals: \url{https://geizhals.at/raspberry-pi-2-modell-b-a1225369.html}\\
-		Farnell: \url{http://at.farnell.com/jsp/search/productdetail.jsp?sku=2461029}
+		Geizhals: \url{https://geizhals.at/raspberry-pi-3-modell-b-a1400349.html}\\
+		Farnell: \url{http://at.farnell.com/jsp/search/productdetail.jsp?sku=2525225}
 	\item \textbf{Gehäuse} (Achtung: Gehäuse für verschiedene Modelle sind teilweise nicht kompatibel)\\
 		Empfehlenswert, da das RaspberryPi ohne Gehäuse geliefert wird.\\
 		Preis: ca. 10 Euro\\
@@ -107,5 +116,21 @@ Hier eine Auflistung von empfehlenswerten bzw. notwendigem Zubehör. Ebenso eini
 Per USB kann eine beliebige Maus und Tastatur angeschlossen werden. 
 Ebenso wird ein SD- bzw. micro SD-Kartenleser zum Kopieren der Betriebsystem-Dateien benötigt. 
 Zum Anschluss an die vorhandene Netzwerkinfrastruktur ist weiters ein LAN-Kabel erforderlich.
+
+\subsection{WLAN}
+\label{sec:rpiwlan}
+
+Im Allgemeinen ist eine Kabelverbindung (insbesondere in Hinblick auf ihre Zuverlässigkeit) gegenüber WLAN zu bevorzugen. 
+Das Modell \textit{RaspberryPi 3 Model B} hat jedoch bereits ein WLAN-Modul inkludiert und kann damit eventuell eine interessante Alternative darstellen, falls die Verlegung eines Netzwerkkabels absolut nicht möglich ist.\\
+Leider war bei der Erstellung dieser Anleitung kein RaspberryPi der neuesten Generation vorhanden, um auch die Konfiguration der WLAN-Verbindung in diesem Dokument aufzunehmen. Im Internet sind dazu aber einige Anleitungen verfügbar.
+Als Ausgangspunkt für eigene Recherchen können die folgenden Webseiten dienen.
+
+\begin{itemize}
+	\item "Drei Wege das WLAN auf einem Raspberry Pi einzurichten"\\
+		\url{https://linuxundich.de/raspberry-pi/drei-wege-das-wlan-auf-einem-raspberry-pi-einzurichten/}
+	\item "Raspberry Pi 3: WLAN einrichten"\\
+		\url{http://jankarres.de/2016/03/raspberry-pi-3-wlan-einrichten/}
+\end{itemize}
+
 
 
