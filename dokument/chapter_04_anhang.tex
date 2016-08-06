@@ -26,13 +26,19 @@ Das Tastaturlayout wird auf deutsch gestellt (z.B. sind \lstinline|Z| und \lstin
 Dazu wird der entsprechende Eintrag in die Datei \lstinline|/etc/default/keyboard| geschrieben und mit dem Befehl \lstinline|dpkg-reconfigure keyboard-configuration| angewendet.
 
 \subsection{Paketinstallation}
+\label{sec:paketinstallation}
 Folgende Software-Pakete werden (nach einem Update der Software-Paketliste) installiert:
 \begin{itemize}
 	\item {\lstinline|firefox|\\Dies ist der verwendete Web-Browser um die Infoscreen-Webseite anzuzeigen (\begin{em}Firefox\end{em} wird in Debian auch teilweise \begin{em}Iceweasel\end{em} genannt, details dazu siehe \cite{iceweasel}).}
 	\item {\lstinline|unclutter|\\Wird benötigt, um den Mauszeiger auszublenden.}
-	\item {\lstinline|x11-xserver-utils|\\Wird benötigt, um den Bildschirmschoner und den Bildschirm-Standby zu deaktivieren.}
+%	\item {\lstinline|x11-xserver-utils|\\Wird benötigt, um den Bildschirmschoner und den Bildschirm-Standby zu deaktivieren.}
 	\item {\lstinline|xmlstarlet|\\Wird zur automatischen Installation von Firefox-Plugins benötigt.}
 \end{itemize}
+
+Diese Pakete werden nicht aus dem raspbian-Repository installiert, da in der aktuellen Firefox-Version die Einrichtung des Kiosk-Modus Probleme bereitete.
+Die installierten Softwarepakete beinhalten den Firefox (bzw. Iceweasel) in der Version 31. 
+Bei der Verwendung von älterer Software ist jedoch besonders darauf Bedacht zu nehmen, dass diese sicherheitskritische Schwachstellen enthalten kann.
+Der Zugriff auf das RaspberryPi sollte daher (wenn möglich) im Netzwerk eingeschränkt werden und der Browser nicht zum Surfen auf anderen Webseiten verwendet werden.
 
 \subsection{Firefox Plugin}
 Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}R-kiosk\end{em} \cite{rkiosk} installiert.
@@ -262,6 +268,11 @@ In diesem Abschnitt werden die Änderungen bei neuen Versionen aufgelistet, dami
 		Funktionsumfang unverändert.
 		Hinweis zu WLAN (siehe \refsec{rpiwlan}) und auf GitHub (siehe \refsec{github}) eingefügt.
  		}
+	\item {Version vom 07. August 2016\\ 
+		Die Version des Installers hat sich (\lstinline|2016-05-27-raspbian-jessie.zip|) geändert. 
+		Anpassungen des Scripts für die neue Version.
+		Funktionsumfang unverändert.
+		Hinweise der Paketinstallation (siehe \refsec{paketinstallation}) ergänzt.
+ 		}
 \end{itemize}
-
 

@@ -12,10 +12,12 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 		(ca. 1,3 Gigabyte)
 %		(Hinweis: Die Version \begin{em}Raspbian Jessie\end{em} mit \begin{em}Release date: 2015-11-21\end{em} wurde auch getestet, jedoch funktionierte in dieser Version der Internet-Browser nicht richtig.)
 		}
-	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2016-03-18-raspbian-jessie.zip|.
+	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2016-05-27-raspbian-jessie.zip|.
 		In unregelmäßigen Abständen wird das raspbian Image aktualisiert.
 		Es ist daher möglich, dass diese Schritt-für-Schritt Anleitung bei zukünftigen Versionen nicht mehr problemlos funktioniert.
-		Bitte in einem solchen Fall um eine Info an \verb|edv@bfkdo-tulln.at|, damit die Anleitung aktualisiert werden kann.}
+		Bitte in einem solchen Fall um eine Info an \verb|edv@bfkdo-tulln.at|, damit die Anleitung aktualisiert werden kann.\\
+		Alternativ kann das Image auch hier heruntergeladen werden, falls diese Anleitung mit einer eventuell neueren Version von raspbian nicht mehr funktioniert: \url{http://bfkdo-tulln.at/is77/os.zip}
+		}
 	\item {Nach dem Download muss die ZIP-Datei entpackt werden. In dieser befindet sich eine IMG-Datei, welche das Betriebssystem behinhaltet.}
 	\item {Windows-Benutzer benötigen zum Überspielen des Images auf die SD-Karte das Tool Win32DiskImager.\\
 		Dieses kann unter \url{http://sourceforge.net/projects/win32diskimager/} heruntergeladen werden. 
@@ -33,7 +35,7 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 		Auch \lstinline|dmesg| ist hilfreich, um die eben erst angelossene Karte zu finden. 
 		Mit \lstinline|mount| werden die aktuell eingebundenen Laufwerke aufgelistet und 
 		die SD-Karte ggf. mit \lstinline|umount /dev/sdb*| (je nachdem als welches Device die Karte erkannt wurde) entfernt.
-		Mit \lstinline|dd bs=8M if=/pfad/zu/datei/2016-03-18-raspbian-jessie.img of=/dev/sdb| kann das Image auf die SD-Karte kopiert werden.
+		Mit \lstinline|dd bs=8M if=/pfad/zu/datei/2016-05-27-raspbian-jessie.img of=/dev/sdb| kann das Image auf die SD-Karte kopiert werden.
 		Das dauert einige Zeit und es gibt keine Fortschrittsanzeige.
 		\textbf{Achtung:} Wichtig ist dabei, unbedingt das richtige Device (\lstinline|/dev/sdb|, \lstinline|/dev/sdc|, etc.) anzugeben, 
 		da sonst eventuell die lokale Festplatte des PCs überschrieben wird!
@@ -54,9 +56,9 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 	\item {Es wird ein Menü ähnlich wie in \reffig{menu} angezeigt, mit den Optionen zur Einrichtung des Betriebsystems. 
 		(Im Menü wird mit den Cursortasten navigiert, mit Tabulator kann zu Select, Finish, etc. gesprungen und mit Enter betätigt werden. Optionen werden mit der Leertaste ausgewählt.
 		\begin{itemize}
-		\item {Zuerst sollte das Dateisystem auf die komplette Größe der SD-Karte erweitert werden
-			(Eintrag \lstinline|Expand Filesystem|). Die tatsächliche Vergrößerung wird beim nächsten Neustart durchgefürt.}
-		\item {Ebenso sollte das Default-Passwort geändert werden (Eintrag \lstinline|Change User Password|). Dieses Passwort wird später noch benötigt.
+%		\item {Zuerst sollte das Dateisystem auf die komplette Größe der SD-Karte erweitert werden
+%			(Eintrag \lstinline|Expand Filesystem|). Die tatsächliche Vergrößerung wird beim nächsten Neustart durchgefürt.}
+		\item {Dabei sollte das Default-Passwort geändert werden (Eintrag \lstinline|Change User Password|). Dieses Passwort wird später noch benötigt.
 			(Hinweis: Bei der Eingabe des Passwortes wird nichts angezeigt. Auch keine \lstinline|*|-Zeichen.)}
 %		\item {Unter \lstinline|Enable Boot to Desktop/Scratch| wird die Option \lstinline|Desktop Log in as user pi at the graphical desktop| ausgewählt. 
 %			Diese Option startet automatisch eine grafische Benutzeroberfläche.}
@@ -128,23 +130,24 @@ Sämtliche Schritte werden so beschrieben, dass sie über das Netzwerk von einem
 		Nach dem Erfolreichen Login wird \lstinline|pi@raspberrypi ~ $| angezeigt (ähnlich wie in \reffig{putty2}).
 		}
 	\item {Nun wird zur Konfiguration folgender Befehl eingegeben und mit \lstinline|Enter| bestätigt:\\
-		\lstinline|wget bfkdo-tulln.at/is76/ -O s.sh; chmod +x s.sh; sudo ./s.sh|
+		\lstinline|wget bfkdo-tulln.at/is77/ -O s.sh; chmod +x s.sh; sudo ./s.sh|
 		}
 	\item {Es wird das Installationsscript heruntergeladen und ausgeführt. Die Ausgabe sollte so ähnlich aussehen:
 		\begin{lstlisting}
 ###############################################
-Installations-Script         Version 2016-05-09
+Installations-Script         Version 2016-08-07
 ###############################################
 Infoscreen wird eingerichtet:
-   Der Vorgang kann einige Minuten dauern, bitte um etwas Geduld!
+   Der Vorgang kann mehrere Minuten dauern, bitte um Geduld!
 - Zeitzone wurde eingerichtet.
 - Systemzeit wurde aktualisiert.
 - Sprache wurde eingerichtet.
 - Tastaturlayout wurde eingerichtet.
-- Software-Paketliste wurde aktualisiert.
+- Paket "iceweasel" wurde heruntergeladen.
 - Paket "iceweasel" wurde installiert.
+- Paket "unclutter" wurde heruntergeladen.
 - Paket "unclutter" wurde installiert.
-- Paket "x11-xserver-utils" wurde installiert.
+- Paket "xmlstarlet" wurde heruntergeladen.
 - Paket "xmlstarlet" wurde installiert.
 - Browser wurde in Autostart eingetragen.
 - Firefox extension wurde heruntergeladen.

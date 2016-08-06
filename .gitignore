@@ -124,3 +124,9 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
+*.php
+*.deb
+*.xpi
+calcmd*
+wallpaper*
