@@ -12,6 +12,14 @@ get_extension_id() {
 
 # ########################################
 
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+echo " "
+echo " Achtung, diese Version des Scripts ist veraltet, "
+echo " fuer die aktuelle Version siehe:"
+echo "http://www.bfkdo-tulln.at/index.php?nav=ereignisse&event=1769"
+echo " "
+echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
 echo "###############################################"
 echo "Installations-Script         Version 2016-05-09"
 echo "###############################################"

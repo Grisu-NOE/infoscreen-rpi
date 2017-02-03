@@ -5,19 +5,26 @@
 Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems auf einer SD-Karte bis das Raspberry gestartet werden kann und mit Maus und Tastatur mit einer normalen Desktop-Oberfläche verwendet werden kann. (Teile der Anleitung für Windows übernommen von \cite{install}.)
 
 \begin{itemize}
-	\item {Erster Schritt ist der Download des aktuellsten raspbian Images.\\
-%		Auf \url{https://www.raspberrypi.org/downloads/raspbian/} gibt es den Abschnitt \begin{em}Raspbian\end{em} mit einem Punkt \begin{em}Raspbian Wheezy\end{em}. 
-		Auf \url{https://www.raspberrypi.org/downloads/raspbian/} gibt es den Abschnitt \begin{em}Raspbian\end{em} mit einem Punkt \begin{em}Raspbian Jessie\end{em}. 
-		Diese ZIP-Datei muss heruntergeladen werden.
-		(ca. 1,3 Gigabyte)
-%		(Hinweis: Die Version \begin{em}Raspbian Jessie\end{em} mit \begin{em}Release date: 2015-11-21\end{em} wurde auch getestet, jedoch funktionierte in dieser Version der Internet-Browser nicht richtig.)
+
+	\item {Erster Schritt ist der Download eines raspbian Images.\\
+		Dazu muss zunächst die ZIP-Datei (ca. 1,3 Gigabyte) \url{http://www.bfkdo-tulln.at/rpi/2016-05-27-raspbian-jessie.zip} heruntergeladen werden.
 		}
-	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2016-05-27-raspbian-jessie.zip|.
-		In unregelmäßigen Abständen wird das raspbian Image aktualisiert.
-		Es ist daher möglich, dass diese Schritt-für-Schritt Anleitung bei zukünftigen Versionen nicht mehr problemlos funktioniert.
-		Bitte in einem solchen Fall um eine Info an \verb|edv@bfkdo-tulln.at|, damit die Anleitung aktualisiert werden kann.\\
-		Alternativ kann das Image auch hier heruntergeladen werden, falls diese Anleitung mit einer eventuell neueren Version von raspbian nicht mehr funktioniert: \url{http://bfkdo-tulln.at/is77/os.zip}
+	\item {\begin{em}Hinweis: Die offiziellen und stets aktuellen Images werden auf der Webseite \url{https://www.raspberrypi.org/downloads/raspbian/} bereitgestellt.
+		Da diese Anleitung aber noch nicht für das aktuelle Image angepasst wurde, kann die letzte funktionierende Version unter dem oben genannten Link heruntergeladen werden.
+		Bitte auch die Hinweise zu eventuell veralteter Software im \refsec{paketinstallation} zu beachten.
+		\end{em}
 		}
+%	\item {Erster Schritt ist der Download des aktuellsten raspbian Images.\\
+%		Auf \url{https://www.raspberrypi.org/downloads/raspbian/} gibt es den Abschnitt \begin{em}Raspbian\end{em} mit einem Punkt \begin{em}Raspbian Jessie\end{em}. 
+%		Diese ZIP-Datei muss heruntergeladen werden.
+%		(ca. 1,3 Gigabyte)
+%		}
+%	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2016-05-27-raspbian-jessie.zip|.
+%		In unregelmäßigen Abständen wird das raspbian Image aktualisiert.
+%		Es ist daher möglich, dass diese Schritt-für-Schritt Anleitung bei zukünftigen Versionen nicht mehr problemlos funktioniert.
+%		Bitte in einem solchen Fall um eine Info an \verb|edv@bfkdo-tulln.at|, damit die Anleitung aktualisiert werden kann.\\
+%		Alternativ kann das Image auch hier heruntergeladen werden, falls diese Anleitung mit einer eventuell neueren Version von raspbian nicht mehr funktioniert: \url{http://bfkdo-tulln.at/is77/os.zip}
+%		}
 	\item {Nach dem Download muss die ZIP-Datei entpackt werden. In dieser befindet sich eine IMG-Datei, welche das Betriebssystem behinhaltet.}
 	\item {Windows-Benutzer benötigen zum Überspielen des Images auf die SD-Karte das Tool Win32DiskImager.\\
 		Dieses kann unter \url{http://sourceforge.net/projects/win32diskimager/} heruntergeladen werden. 
