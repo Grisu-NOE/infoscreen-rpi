@@ -185,7 +185,7 @@ fi
 
 # ########################################
 # lade Desktop Hintergrund herunter
-wget --output-document=/usr/share/infoscreen-bg.png ${SRVPATH}/wallpaper_2017-03-20.png.png > /dev/null 2> /dev/null
+wget --output-document=/usr/share/infoscreen-bg.png ${SRVPATH}/wallpaper_2017-03-20.png > /dev/null 2> /dev/null
 if md5sum /usr/share/infoscreen-bg.png | grep 344fa7102265890bd4b8f469ab9d33c6 > /dev/null 2> /dev/null
 then
     echo "- Hintergrundbild wurde heruntergeladen."
@@ -210,7 +210,7 @@ show_mounts=0
 prefs_app=pipanel
 EOF
 
-if cat /home/pi/.mozilla/firefox/*Infoscreen/prefs.js | grep "/usr/share/infoscreen-bg.png" > /dev/null 2> /dev/null
+if cat /home/pi/.config/pcmanfm/LXDE-pi/desktop-items-0.conf | grep "/usr/share/infoscreen-bg.png" > /dev/null 2> /dev/null
 then
     echo "- Hintergrundbild wurde konfiguriert."
 else
