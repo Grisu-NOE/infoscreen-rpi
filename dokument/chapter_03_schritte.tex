@@ -15,15 +15,15 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 %		\end{em}
 %		}
 	\item {Erster Schritt ist der Download des aktuellsten raspbian Images.\\
-		Auf \url{https://www.raspberrypi.org/downloads/raspbian/} gibt es den Abschnitt \begin{em}Raspbian\end{em} mit einem Punkt \begin{em}Raspbian Jessie with PIXEL\end{em}. 
+		Auf \url{https://www.raspberrypi.org/downloads/raspbian/} gibt es den Abschnitt \begin{em}Raspbian\end{em} mit einem Punkt \begin{em}Raspbian Buster with desktop\end{em}. 
 		Diese ZIP-Datei muss heruntergeladen werden.
-		(ca. 1,6 Gigabyte)
+		(ca. 1,2 Gigabyte)
 		}
-	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2017-03-02-raspbian-jessie.zip|.
+	\item {Hinweis: Zur Zeit lautet die Datei \lstinline|2019-07-10-raspbian-buster.zip|.
 		In unregelmäßigen Abständen wird das raspbian Image aktualisiert.
 		Es ist daher möglich, dass diese Schritt-für-Schritt Anleitung bei zukünftigen Versionen nicht mehr problemlos funktioniert.
 		Bitte in einem solchen Fall um eine Info an \verb|edv@bfkdo-tulln.at|, damit die Anleitung aktualisiert werden kann.\\
-		Alternativ kann das Image auch hier heruntergeladen werden, falls diese Anleitung mit einer eventuell neueren Version von raspbian nicht mehr funktioniert: \url{http://bfkdo-tulln.at/is78/os.zip}
+		Alternativ kann das Image auch hier heruntergeladen werden, falls diese Anleitung mit einer eventuell neueren Version von raspbian nicht mehr funktioniert: \url{http://bfkdo-tulln.at/is79/os.zip}
 		}
 	\item {Nach dem Download muss die ZIP-Datei entpackt werden. In dieser befindet sich eine IMG-Datei, welche das Betriebssystem behinhaltet.}
 	\item {Windows-Benutzer benötigen zum Überspielen des Images auf die SD-Karte das Tool Win32DiskImager.\\
@@ -42,7 +42,7 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 		Auch \lstinline|dmesg| ist hilfreich, um die eben erst angelossene Karte zu finden. 
 		Mit \lstinline|mount| werden die aktuell eingebundenen Laufwerke aufgelistet und 
 		die SD-Karte ggf. mit \lstinline|umount /dev/sdb*| (je nachdem als welches Device die Karte erkannt wurde) entfernt.
-		Mit \lstinline|dd bs=8M if=/pfad/zu/datei/2017-03-02-raspbian-jessie.img of=/dev/sdb| kann das Image auf die SD-Karte kopiert werden.
+		Mit \lstinline|dd bs=8M if=/pfad/zu/datei/2019-07-10-raspbian-buster.img of=/dev/sdb| kann das Image auf die SD-Karte kopiert werden.
 		Das dauert einige Zeit und es gibt keine Fortschrittsanzeige.
 		\textbf{Achtung:} Wichtig ist dabei, unbedingt das richtige Device (\lstinline|/dev/sdb|, \lstinline|/dev/sdc|, etc.) anzugeben, 
 		da sonst eventuell die lokale Festplatte des PCs überschrieben wird!
@@ -50,25 +50,41 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 	\item {Als nächstes kann die SD-Karte ins RaspberryPi eingesetzt werden. Dann Maus, Tastatur, Bildschirm und Netzwerk angeschlossen werden. 
 		Als letztes wird die Stromversorgung angeschlossen und das RaspberryPi startet automatisch.
 		}
-	\item {Beim Start wird links oben eine Himbeere angezeigt und verschiedene Textnachrichten werden angezeigt. 
-		Es folgt ein Bild mit einer Himbeere und der Meldung \begin{em}Welcome to PIXEL\end{em}. 
-		Das RaspberryPi sollte direkt mit einer grafischen Benutzeroberfläche starten und als Hintergrund eine Landschaft (ähnlich wie in \reffig{rpidesktop}) anzeigen.
+	\item {Beim Start wird links oben eine (oder mehrere) Himbeere(n) angezeigt und verschiedene Textnachrichten werden angezeigt. 
+		Es folgt ein Bild mit einer Himbeere und der Meldung \begin{em}Welcome to the Raspberry Pi Desktop\end{em}. 
+		Das RaspberryPi sollte direkt mit einer grafischen Benutzeroberfläche starten und als Hintergrund eine Landschaft mit Sonnenaufgang anzeigen.
 		}
-	\item {Um das System weiter einzurichten, muss nun ein Terminal geöffnet werden.
+	\item {Weiters erscheint ein Fenster mit Titel \begin{em}Welcome to Raspberry Pi\end{em} (siehe \reffig{rpiwiz1}).
+		\begin{itemize}
+		\item {Mit klick auf \lstinline|Next| wird die Einrichtung gestartet.}
+		\item {In nächsten Dialog sollte bei \lstinline|Country| die Option \lstinline|Austria| gewählt werden, die übrigen Felder stellen sich automatisch um.
+		      Mit klick auf \lstinline|Next| wird die Einrichtung fortgesetzt.}
+		\item {Im Dialog \lstinline|Change Password| sollte das Passwort für den Benutzer \lstinline|pi| geändert werden.
+		      Dieses Passwort wird später noch benötigt.
+		      Mit klick auf \lstinline|Next| wird die Einrichtung fortgesetzt.}
+		\item {Im Dialog \lstinline|Set Up Screen| kann die Bildschirmanzeige optimiert werden, falls ein schwarzer Rand angezeigt wird.
+		      Weiter mit \lstinline|Next|.}
+		\item {Im Dialog \lstinline|Select WiFi Netzwork| muss nur etwas ausgewählt werden, wenn WLAN verwendet werden soll.
+		      Andernfalls weiter mit \lstinline|Skip|.}
+		\item {Der Dialog \lstinline|Update Software| wird mit \lstinline|Skip| übersprungen.}
+		\item {Anschließend wird mit \lstinline|Restart| das System neu gestartet.}
+		\end{itemize}
+		}
+	\item {Um das System weiter einzurichten, muss nach dem Neustart ein Terminal geöffnet werden.
 		Das Symbol dafür befindet sich links oben (siehe \reffig{rpiterminal}).
-		Dann wird folgender Befehl eingegeben und mit \lstinline|Enter| bestätigt:\\
-		\lstinline|setxkbmap de|\\
-		Danach wird folgender Befehl eingegeben und erneut mit \lstinline|Enter| bestätigt:\\
+%		Dann wird folgender Befehl eingegeben und mit \lstinline|Enter| bestätigt:\\
+%		\lstinline|setxkbmap de|\\
+		Danach wird folgender Befehl eingegeben und mit \lstinline|Enter| bestätigt:\\
 		\lstinline|sudo raspi-config|
 		}
-	\item {Es wird ein Menü ähnlich wie in \reffig{menu} angezeigt, mit den Optionen zur Einrichtung des Betriebsystems. 
+	\item {Es wird ein Menü ähnlich wie in \reffig{menu} angezeigt, mit den Optionen zur weitern Einrichtung des Betriebsystems. 
 		(Im Menü wird mit den Cursortasten navigiert, mit Tabulator kann zu Select, Finish, etc. gesprungen und mit Enter betätigt werden. Optionen werden mit der Leertaste ausgewählt.
 		\begin{itemize}
 %		\item {Zuerst sollte das Dateisystem auf die komplette Größe der SD-Karte erweitert werden
 %			(Eintrag \lstinline|Expand Filesystem|). Die tatsächliche Vergrößerung wird beim nächsten Neustart durchgefürt.}
-		\item {Dabei sollte das Default-Passwort geändert werden (Eintrag \lstinline|1 Change User Password|). Dieses Passwort wird später noch benötigt.
-			(Hinweis: Bei der Eingabe des Passwortes wird nichts angezeigt. Auch keine \lstinline|*|-Zeichen.)}
-		\item {Unter \lstinline|5 Interfacing Options| $\rightarrow$ \lstinline|P2 SSH| wird die Option \lstinline|Yes| ausgewählt. 
+%		\item {Dabei sollte das Default-Passwort geändert werden (Eintrag \lstinline|1 Change User Password|). Dieses Passwort wird später noch benötigt.
+%			(Hinweis: Bei der Eingabe des Passwortes wird nichts angezeigt. Auch keine \lstinline|*|-Zeichen.)}
+		\item {Unter \lstinline|5 Interfacing Options| $\rightarrow$ \lstinline|P2 SSH| wird die Option \lstinline|Yes| (bzw. \lstinline|Ja|) ausgewählt. 
 			Diese Option startet den SSH-Server.}
 %		\item {Unter \lstinline|Enable Boot to Desktop/Scratch| wird die Option \lstinline|Desktop Log in as user pi at the graphical desktop| ausgewählt. 
 %			Diese Option startet automatisch eine grafische Benutzeroberfläche.}
@@ -96,10 +112,17 @@ Dieses Kapitel beschreibt die Installation und Einrichtung des Betriebsystems au
 
 \begin{figure}[h!]
 	\centering
-		\includegraphics[width=0.8\textwidth]{./fotos/desktop-pixel.jpg}
-	\caption{Desktop der grafischen Benutzeroberfläche am RaspberryPi (Quelle: \cite{deskp})}
-	\label{fig:rpidesktop}
+		\includegraphics[width=0.5\textwidth]{./fotos/wiz1-500x334.png}
+	\caption{Fenster zur initialen Einrichtung (Quelle: \cite{wiz1})}
+	\label{fig:rpiwiz1}
 \end{figure}
+
+%\begin{figure}[h!]
+%	\centering
+%		\includegraphics[width=0.8\textwidth]{./fotos/desktop-pixel.jpg}
+%	\caption{Desktop der grafischen Benutzeroberfläche am RaspberryPi (Quelle: \cite{deskp})}
+%	\label{fig:rpidesktop}
+%\end{figure}
 
 \begin{figure}[h!]
 	\centering
@@ -140,21 +163,22 @@ Sämtliche Schritte werden so beschrieben, dass sie über das Netzwerk von einem
 		Nach dem Erfolreichen Login wird \lstinline|pi@raspberrypi ~ $| angezeigt (ähnlich wie in \reffig{putty2}).
 		}
 	\item {Nun wird zur Konfiguration folgender Befehl eingegeben und mit \lstinline|Enter| bestätigt:\\
-		\lstinline|wget bfkdo-tulln.at/is78/ -O s.sh; chmod +x s.sh; sudo ./s.sh|
+		\lstinline|wget bfkdo-tulln.at/is79/ -O s.sh; chmod +x s.sh; sudo ./s.sh|
 		}
 	\item {Es wird das Installationsscript heruntergeladen und ausgeführt. Die Ausgabe sollte so ähnlich aussehen:
 		\begin{lstlisting}
 ###############################################
-Installations-Script         Version 2017-03-20
+Installations-Script         Version 2019-07-26
 ###############################################
 Infoscreen wird eingerichtet:
    Der Vorgang kann mehrere Minuten dauern, bitte um Geduld!
 - Zeitzone wurde eingerichtet.
-- Systemzeit wurde aktualisiert.
 - Sprache wurde eingerichtet.
 - Tastaturlayout wurde eingerichtet.
-- Paket "iceweasel" wurde heruntergeladen.
-- Paket "iceweasel" wurde installiert.
+- Paket "libjsoncpp1" wurde heruntergeladen.
+- Paket "libjsoncpp1" wurde installiert.
+- Paket "firefox-esr" wurde heruntergeladen.
+- Paket "firefox-esr" wurde installiert.
 - Paket "unclutter" wurde heruntergeladen.
 - Paket "unclutter" wurde installiert.
 - Paket "xmlstarlet" wurde heruntergeladen.

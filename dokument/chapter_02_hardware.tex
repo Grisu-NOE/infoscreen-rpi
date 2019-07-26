@@ -16,7 +16,7 @@ Längere HDMI, DVI oder VGA-Kabel sind auch oft problematisch.
 Eine gute Alternative ist dabei ein RaspberryPi \cite{rpi}. Ein RaspberryPi ist sehr preiswerter Einplatinen-Computer mit den ungefähren Abmessungen einer Scheckkarte.\\
 Seit 2012 gibt es bereits mehrere Modelle des RaspberryPi. Die \reftab{rpimodels} gibt einen Überblick über die verfügbaren Modelle und die Eignung für den Infoscreen. 
 (Auf Wikipedia findet sich ebenfalls eine gute Übersicht über die Hardwareeigenschaften der verschiedenen Modelle \cite{wikirpi}.)
-Das zur Zeit (Mai 2016) aktuelle (und auch für den Infoscreen empfohlene) Modell ist das \begin{em}RaspberryPi 3 Model B\end{em}.\\
+Das zur Zeit (Juli 2019) aktuelle (und auch für den Infoscreen empfohlene) Modell ist das \begin{em}RaspberryPi 4\end{em}.\\
 %Zur Zeit gibt es das ältere \begin{em}Model B\end{em} (siehe \reffig{rpib}) und das \begin{em}Model B+\end{em} (siehe \reffig{rpibplus}).
 %Beide davon sind für den Betrieb eines Infoscreens geeignet.
 (Das \begin{em}Zero\end{em}, \begin{em}Model A\end{em} oder \begin{em}Model A+\end{em} ist nicht geeignet, da es keinen Netzwerkanschluss hat.)
@@ -29,10 +29,11 @@ Das zur Zeit (Mai 2016) aktuelle (und auch für den Infoscreen empfohlene) Model
     RaspberryPi Model A & nein & 256MiB & nein \\
     RaspberryPi Model B {\hyperref[fig:rpib1]{(Abb.)}} & ja & 256MiB & ja $^{1)}$ \\
     RaspberryPi Model B rev2 {\hyperref[fig:rpib2]{(Abb.)}} & ja & 512MiB & ja $^{1)}$ \\
-    RaspberryPi Model B+ {\hyperref[fig:rpibplus]{(Abb.)}} & ja & 512MiB & ja \\
+    RaspberryPi Model B+ {\hyperref[fig:rpibplus]{(Abb.)}} & ja & 512MiB & ja $^{1)}$ \\
     RaspberryPi Model A+ & nein & 256MiB & nein \\
     RaspberryPi 2 Model B {\hyperref[fig:rpi2b]{(Abb.)}} & ja & 1GiB & ja $^{1)}$ \\
-    RaspberryPi 3 Model B $^{2)}$ {\hyperref[fig:rpi3b]{(Abb.)}} & ja (+WLAN) & 1GiB & ja $^{1)}$ \\
+    RaspberryPi 3 Model B {\hyperref[fig:rpi3b]{(Abb.)}} & ja (+WLAN) & 1GiB & ja \\
+    RaspberryPi 4 $^{2)}$ {\hyperref[fig:rpi4b]{(Abb.)}} & ja (+WLAN) & 1GiB/2GiB/4GiB & ja $^{1)}$ \\
     Zero & nein & 256MiB & nein \\
     \hline
   \end{tabular}
@@ -75,6 +76,13 @@ Das zur Zeit (Mai 2016) aktuelle (und auch für den Infoscreen empfohlene) Model
 		\includegraphics[width=0.55\textwidth]{./fotos/Raspberry_Pi_3_Model_B.jpg}
 	\caption{RaspberryPi 3 Model B (Quelle: \cite{rpi3b})}
 	\label{fig:rpi3b}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+		\includegraphics[width=0.55\textwidth]{./fotos/Raspberry_Pi_4_Model_B.jpg}
+	\caption{RaspberryPi 4 Model B (Quelle: \cite{rpi4b})}
+	\label{fig:rpi4b}
 \end{figure}
 
 \clearpage
@@ -122,7 +130,7 @@ Zum Anschluss an die vorhandene Netzwerkinfrastruktur ist weiters ein LAN-Kabel 
 \label{sec:rpiwlan}
 
 Im Allgemeinen ist eine Kabelverbindung (insbesondere in Hinblick auf ihre Zuverlässigkeit) gegenüber WLAN zu bevorzugen. 
-Das Modell \textit{RaspberryPi 3 Model B} hat jedoch bereits ein WLAN-Modul inkludiert und kann damit eventuell eine interessante Alternative darstellen, falls die Verlegung eines Netzwerkkabels absolut nicht möglich ist.\\
+Das Modell \textit{RaspberryPi 4 Model B} hat jedoch bereits ein WLAN-Modul inkludiert und kann damit eventuell eine interessante Alternative darstellen, falls die Verlegung eines Netzwerkkabels absolut nicht möglich ist.\\
 Leider war bei der Erstellung dieser Anleitung kein RaspberryPi der neuesten Generation vorhanden, um auch die Konfiguration der WLAN-Verbindung in diesem Dokument aufzunehmen. Im Internet sind dazu aber einige Anleitungen verfügbar.
 Als Ausgangspunkt für eigene Recherchen können die folgenden Webseiten dienen.
 

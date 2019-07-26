@@ -11,9 +11,10 @@ Dazu wird die entsprechende Zeitzone in die Datei \lstinline|/etc/timezone| gesc
 
 \subsection{Systemzeit aktualisieren}
 \label{sec:zeitsync}
-Der Server \lstinline|ts1.univie.ac.at| wird in der Datei \lstinline|/etc/ntp.conf| zur Zeitsynchronisierung eingetragen.
-(Die Default-Server hatten in seltenen Fällen Probleme mit der Zeitsynchronisierung.)
-Der Zeitsynchronisierung-Dienst wird gestoppt, danach mit dem Befehl \lstinline|ntpd -gqx| eine sofortige Synchronisierung durchgeführt und der Dienst wieder gestartet.
+%Der Server \lstinline|ts1.univie.ac.at| wird in der Datei \lstinline|/etc/ntp.conf| zur Zeitsynchronisierung eingetragen.
+%(Die Default-Server hatten in seltenen Fällen Probleme mit der Zeitsynchronisierung.)
+%Der Zeitsynchronisierung-Dienst wird gestoppt, danach mit dem Befehl \lstinline|ntpd -gqx| eine sofortige Synchronisierung durchgeführt und der Dienst wieder gestartet.
+(Nicht mehr notwendig, da aktuell \lstinline|timedatectl| von \lstinline|systemd| in Verwendung ist.)
 
 \subsection{Sprache einrichten}
 \label{sec:sprache}
@@ -29,19 +30,21 @@ Dazu wird der entsprechende Eintrag in die Datei \lstinline|/etc/default/keyboar
 \label{sec:paketinstallation}
 Folgende Software-Pakete werden (nach einem Update der Software-Paketliste) installiert:
 \begin{itemize}
-	\item {\lstinline|firefox|\\Dies ist der verwendete Web-Browser um die Infoscreen-Webseite anzuzeigen (\begin{em}Firefox\end{em} wird in Debian auch teilweise \begin{em}Iceweasel\end{em} genannt, details dazu siehe \cite{iceweasel}).}
+	\item {\lstinline|firefox-esr|\\Dies ist der verwendete Web-Browser um die Infoscreen-Webseite anzuzeigen (\begin{em}Firefox\end{em} wird in Debian auch teilweise \begin{em}Iceweasel\end{em} genannt, details dazu siehe \cite{iceweasel}).}
 	\item {\lstinline|unclutter|\\Wird benötigt, um den Mauszeiger auszublenden.}
 %	\item {\lstinline|x11-xserver-utils|\\Wird benötigt, um den Bildschirmschoner und den Bildschirm-Standby zu deaktivieren.}
+	\item {\lstinline|libjsoncpp1|\\Wird für Firefox benötigt.}
 	\item {\lstinline|xmlstarlet|\\Wird zur automatischen Installation von Firefox-Plugins benötigt.}
 \end{itemize}
 
 Diese Pakete werden nicht aus dem raspbian-Repository installiert, da in der aktuellen Firefox-Version die Einrichtung des Kiosk-Modus Probleme bereitete.
-Die installierten Softwarepakete beinhalten den Firefox (bzw. Iceweasel) in der Version 31. 
+Die installierten Softwarepakete beinhalten den Firefox (bzw. Iceweasel) in einer älteren Version. 
 Bei der Verwendung von älterer Software ist jedoch besonders darauf Bedacht zu nehmen, dass diese sicherheitskritische Schwachstellen enthalten kann.
 Der Zugriff auf das RaspberryPi sollte daher (wenn möglich) im Netzwerk eingeschränkt werden und der Browser nicht zum Surfen auf anderen Webseiten verwendet werden.
 
 \subsection{Firefox Plugin}
-Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}R-kiosk\end{em} \cite{rkiosk} installiert.
+%Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}R-kiosk\end{em} \cite{rkiosk} installiert.
+Um den Firefox automatisch im Vollbild zu starten wird das Plugin \begin{em}Full Screen Multiple Monitor\end{em} \cite{mkiosk} installiert.
 
 \subsection{Autostart}
 \label{sec:autostartconf}
@@ -95,18 +98,16 @@ In der Datei \lstinline|/home/pi/.mozilla/firefox/*Infoscreen/prefs.js| werden f
 
 \subsection{Desktop-Verknüpfungen}
 \label{sec:desktopconf}
-Am Desktop werden zwei Verknüpfungen zu Firefox (=Iceweasel) angelegt.
-Die Datei \lstinline|/home/pi/Desktop/iceweasel.desktop| sorgt für eine Verknüfung zum normalen Start von Firefox:\\
+Am Desktop werden zwei Verknüpfungen zu Firefox angelegt.
+Die Datei \lstinline|/home/pi/Desktop/firefox.desktop| sorgt für eine Verknüfung zum normalen Start von Firefox:\\
 \begin{lstlisting}
 [Desktop Entry]
 Encoding=UTF-8
-Name=Iceweasel
-Exec=iceweasel
+Name=Firefox
+Exec=firefox-esr
 Terminal=false
 Type=Application
-Icon=iceweasel
-Categories=Network;WebBrowser;
-StartupWMClass=Iceweasel
+Icon=firefox-esr
 StartupNotify=true
 \end{lstlisting}
 
@@ -114,13 +115,11 @@ Die Datei \lstinline|/home/pi/Desktop/safemode.desktop| sorgt für eine Verknüf
 \begin{lstlisting}
 [Desktop Entry]
 Encoding=UTF-8
-Name=Iceweasel (safe-mode)
-Exec=iceweasel -safe-mode
+Name=Firefox (safe-mode)
+Exec=firefox-esr -safe-mode
 Terminal=false
 Type=Application
-Icon=iceweasel
-Categories=Network;WebBrowser;
-StartupWMClass=Iceweasel
+Icon=firefox-esr
 StartupNotify=true
 \end{lstlisting}
 
@@ -139,7 +138,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 
 7  4	* * *	root	echo "`date` - periodic reboot" >> /root/reboot.log; reboot 
-*/5  *	* * *	root	pidof iceweasel > /dev/null && echo "`date` - iceweasel running" > /root/running.log || (echo "`date` - iceweasel not running" >> /root/reboot.log; reboot )
+*/5  *	* * *	root	pidof firefox-esr > /dev/null && echo "`date` - firefox-esr running" > /root/running.log || (echo "`date` - firefox-esr not running" >> /root/reboot.log; reboot )
 0  5	5 1 *	root	echo "`date` - cleaned file" > /root/reboot.log;
 
 #
@@ -280,6 +279,12 @@ In diesem Abschnitt werden die Änderungen bei neuen Versionen aufgelistet, dami
 	\item {Version vom 20. März 2017\\ 
 		Die Version des Installers hat sich (\lstinline|2017-03-02-raspbian-jessie.zip|) geändert. 
 		Anpassungen des Scripts für die neue Version.
+		Funktionsumfang unverändert.
+ 		}
+	\item {Version vom 26. Juli 2019\\ 
+		Modell \textit{RaspberryPi 4 Model B} in Tabelle eingefügt (siehe \refsec{rpi}).
+		Die Version des Installers hat sich (\lstinline|2019-07-10-raspbian-buster.zip|) geändert. 
+		Anpassungen des Scripts für die neue Version (neue Firefox-Version, alternatives Kiosk-Mode-Plugin).
 		Funktionsumfang unverändert.
  		}
 \end{itemize}
